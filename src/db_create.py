@@ -26,7 +26,7 @@ class DataBaseCreate:
         )
         conn.autocommit = True
         try:
-            if "select".upper() in query.upper():
+            if "SELECT" in query.upper():
                 with conn.cursor() as cursor:
                     cursor.execute(query, params)
                     name_column = [d[0] for d in cursor.description]
@@ -35,7 +35,6 @@ class DataBaseCreate:
             else:
                 with conn.cursor() as cursor:
                     result = cursor.execute(query, params)
-                    print(f"Успешное выполнение запроса: {query}")
         except psycopg2.Error as e:
             print(f"Ошибка выполнения запроса: {e}")
         finally:
