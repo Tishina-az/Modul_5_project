@@ -1,4 +1,5 @@
 import json
+import os.path
 
 import requests
 
@@ -6,7 +7,7 @@ import requests
 def get_employers_id() -> list:
     """ Получение списка ID работодателей из файла """
 
-    path_to_json = '../data/employers_id.json'
+    path_to_json = os.path.join(os.path.dirname(__file__), '..', 'data', 'employers_id.json')
     with open(path_to_json) as file:
         data = json.load(file)
         employers_id = data.get('employers', [])
@@ -24,7 +25,7 @@ def get_employers(employers_id: list) -> list[dict]:
         if response.status_code == 200:
             data = response.json()
             employers.append({
-                "id": data.get("id"),
+                "employer_id": data.get("id"),
                 "name": data.get("name"),
                 "area": data.get("area").get("name", "Не указано"),
                 "open_vacancies": data.get("open_vacancies"),
