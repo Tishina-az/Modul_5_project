@@ -1,7 +1,9 @@
+from typing import Any
+
 from src.db_manager import DBManager
 
 
-def user_interaction():
+def user_interaction() -> Any:
     """Функция взаимодействия с пользователем"""
 
     dbm = DBManager()

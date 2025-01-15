@@ -68,12 +68,3 @@ def get_vacancies(employers_id: list) -> list[dict]:
             raise ValueError(f"Error: {response.status_code} - {response.text}")
 
     return vacancies
-
-
-if __name__ == "__main__":
-    for vacancy in get_vacancies(get_employers_id()):
-        print(vacancy)
-    print(len(get_vacancies(get_employers_id())))
-
-    for company in get_employers(get_employers_id()):
-        print(company)

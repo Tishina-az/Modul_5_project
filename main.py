@@ -3,7 +3,7 @@ from src.db_create import DataBaseCreate
 from src.user_interaction import user_interaction
 
 
-def main():
+def main() -> None:
     """ Главная функция взаимодействия с пользователем """
 
     db = DataBaseCreate()

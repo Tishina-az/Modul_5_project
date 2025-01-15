@@ -1,4 +1,5 @@
 import os
+from typing import Any
 
 import psycopg2
 from dotenv import load_dotenv
@@ -9,7 +10,7 @@ load_dotenv()
 class DataBaseCreate:
     """Класс для создания и заполнения базы данных"""
 
-    def __init__(self, db_new_name="hh_ru"):
+    def __init__(self, db_new_name="hh_ru") -> None:
         """Конструктор класса"""
         self.dbname: str = os.getenv("DB_NAME")
         self.__user: str = os.getenv("DB_USER")
@@ -18,7 +19,7 @@ class DataBaseCreate:
         self.__port: str = os.getenv("DB_PORT")
         self.db_new_name: str = db_new_name
 
-    def create_execute(self, query: str, params: tuple = None):
+    def create_execute(self, query: str, params: tuple = None) -> Any:
         """Метод для создания подключения к PostgreSQL и отправке запросов"""
 
         conn = psycopg2.connect(
@@ -41,18 +42,18 @@ class DataBaseCreate:
             conn.close()
             return result
 
-    def delete_database(self):
+    def delete_database(self) -> None:
         """Удаление указанной базы данных, если она существует"""
         query = f"DROP DATABASE IF EXISTS {self.db_new_name}"
         self.create_execute(query)
 
-    def create_database(self):
+    def create_database(self) -> None:
         """Метод для создания новой базы данных"""
         self.delete_database()
         query = f"CREATE DATABASE {self.db_new_name}"
         self.create_execute(query)
 
-    def create_table_employers(self):
+    def create_table_employers(self) -> None:
         """Создание таблицы с работодателями"""
         self.dbname = self.db_new_name
         query = """CREATE TABLE IF NOT EXISTS employers
@@ -66,7 +67,7 @@ class DataBaseCreate:
                     )"""
         self.create_execute(query)
 
-    def create_table_vacancies(self):
+    def create_table_vacancies(self) -> None:
         """Создание таблицы с работодателями"""
         self.dbname = self.db_new_name
         query = """CREATE TABLE IF NOT EXISTS vacancies
@@ -81,7 +82,7 @@ class DataBaseCreate:
                     )"""
         self.create_execute(query)
 
-    def fill_table_from_list(self, table_name: str, data_list: list[dict]):
+    def fill_table_from_list(self, table_name: str, data_list: list[dict]) -> None:
         """Заполнение таблицы работодателей данными из списка словарей"""
         for data in data_list:
             columns = ", ".join(data.keys())
